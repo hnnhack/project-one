@@ -20,12 +20,12 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
-        <LinkContainer to='/'>
+          <LinkContainer to='/'>
             <Navbar.Brand>Eshop</Navbar.Brand>
           </LinkContainer>
+            <Route render={({ history }) => <SearchBox history={history} />} />
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
