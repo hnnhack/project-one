@@ -5,6 +5,7 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   listProductDetails,
   createProductReview,
@@ -65,9 +66,21 @@ const ProductScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+              <Image src={product.image} alt={product.name}
+               style={{ 
+                display: 'block',
+                height: '25rem',
+                width: 'auto',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginBottom: '2em',
+                padding: '0',
+                boxSizing: 'border-box',
+              }} 
+              />
             </Col>
             <Col md={3}>
               <ListGroup variant='flush'>
@@ -81,7 +94,7 @@ const ProductScreen = ({ history, match }) => {
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>Price: €{product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
                 </ListGroup.Item>
@@ -94,7 +107,7 @@ const ProductScreen = ({ history, match }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <strong>€{product.price}</strong>
                       </Col>
                     </Row>
                 </ListGroup.Item>
