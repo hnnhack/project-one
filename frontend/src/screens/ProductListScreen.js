@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button, Row, Col } from 'react-bootstrap'
+import { Table, Button, Row, Col, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -92,10 +92,11 @@ const ProductListScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className='table-sm'>
+          <Table striped bordered hover responsive className='table-xsm'>
             <thead>
               <tr>
-                <th>ID</th>
+                {/* <th>ID</th> */}
+                <th>IMAGE</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -106,7 +107,15 @@ const ProductListScreen = ({ history, match }) => {
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
+                  {/* <td>{product._id}</td> */}
+                  <td>
+                    <Image src={product.image} alt={product.name} fluid rounded 
+                      style={{
+                      width: "2rem",
+                      maxHeight: "auto"
+                     }}
+                    />
+                  </td>
                   <td>{product.name}</td>
                   <td>€{product.price}</td>
                   <td>{product.category}</td>
