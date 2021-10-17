@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import CLOUDINARY_URL from '../upload.js'
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id
@@ -52,22 +53,17 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate])
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', file)
-    setUploading(true)
-
+  const handleImageUpload = async (e) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-
-      const { data } = await axios.post('/api/upload', formData, config)
-
-      setImage(data)
+      const image = e.target.files[0]
+      const data = new FormData();
+      data.append('file', image);
+      data.append('upload_preset', 'reactreserve');
+      data.append('cloud_name', 'naethkhan');
+      setUploading(true)
+      const response = await axios.post(CLOUDINARY_URL, data);
+      const imageUrl = response.data.url;
+      setImage(imageUrl)
       setUploading(false)
     } catch (error) {
       console.error(error)
@@ -139,7 +135,7 @@ const ProductEditScreen = ({ match, history }) => {
                 id='image-file'
                 label='Choose File'
                 custom
-                onChange={uploadFileHandler}
+                onChange={handleImageUpload}
             ></Form.File>
             {uploading && <Loader />}
             <Form.Group controlId='brand'>
